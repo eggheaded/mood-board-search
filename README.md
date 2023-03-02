@@ -6,7 +6,7 @@
 
 Mood Board Search is an A.I. Experiment that lets you train a computer to recognize visual concepts using mood boards and machine learning. It’s a playful way to explore and analyze image collections using mood boards as your search query.
 
-For this release, we're making Mood Board Search available as a HTML/JS frontend app (“CAVstudio”)  that works with a local Python backend.
+For this release, we're making Mood Board Search available as a HTML/JS frontend app (“CAVstudio”) that works with a local Python backend.
 
 ## Who is it for?
 
@@ -16,8 +16,8 @@ Artists, photographers, image researchers, curators, educators – really, anyon
 
 This repository contains two components related to Mood Board Search:
 
-- “CAVstudio”
-- “CAVlib”
+-   “CAVstudio”
+-   “CAVlib”
 
 ## How does Mood Board Search work?
 
@@ -25,12 +25,11 @@ This repository contains two components related to Mood Board Search:
 
 Mood Board Search works by training a model to recognize a visual concept using an open-source ML method called [concept activation vectors (CAVs)]. Once you’ve trained your CAV, you can use it to search image collections to show you the closest matches, according to your CAV. You can review the results, fine-tune the things it likes, and inspect each result to understand what it's drawn to. Once you’re finished training a CAV, you can deploy it into a Python application using only a few lines of code.
 
-
 CAVstudio works by creating a concept activation vector (CAV) from your training images, and then using it to search a set of images to show you the closest matches according to the CAV. You can review the results, fine tune the things it likes, and inspect each result to understand what it's drawn to.
 
 Once you're happy, you can export the CAV file for use in [CAV Camera](https://play.google.com/store/apps/details?id=co.nordprojects.cavcam), or use it in your own projects with [CAVlib].
 
-[concept activation vectors (CAVs)]: https://arxiv.org/abs/1711.11279
+[concept activation vectors (cavs)]: https://arxiv.org/abs/1711.11279
 
 ## A closer look at CAVs
 
@@ -46,7 +45,7 @@ CAVs are a direction in 'embedding space' - a vector. It works like this: if you
 
 ---
 
-CAVs can be used as a lightweight way to train neural network ML models to recognise new visual concepts.  By taking existing pretrained models, CAVs can expose hidden understanding of inner layers of the model by finding the direction (a.k.a 'vector') of a concept in the high-dimensional embedding space. This is a simple form of transfer learning that produces surprisingly good results with tiny amounts of training data. We've had success training CAVs using as few as 10-30 images. The resulting CAV is very lightweight - around 250kB - and can be deployed into a Python application using only a few lines of code.
+CAVs can be used as a lightweight way to train neural network ML models to recognise new visual concepts. By taking existing pretrained models, CAVs can expose hidden understanding of inner layers of the model by finding the direction (a.k.a 'vector') of a concept in the high-dimensional embedding space. This is a simple form of transfer learning that produces surprisingly good results with tiny amounts of training data. We've had success training CAVs using as few as 10-30 images. The resulting CAV is very lightweight - around 250kB - and can be deployed into a Python application using only a few lines of code.
 
 To create a CAV, you need positive and negative training images. Positive images show the concept you're trying to express, and negative ones do not (or even better, show the opposite).
 
@@ -65,8 +64,9 @@ Once formed, the CAV can be compared with any new image, by looking at the angle
 This release of Mood Board Search is available as a HTML/JS frontend app (“CAVstudio”) that works with a local Python backend.
 
 To run CAVstudio, you'll need on your machine:
-- Python 3.8.6. You can download it from [Python.org](https://www.python.org/downloads/). I recommend installing via miniconda and the conda-forge channel.
-- node v15+. Download it from [nodejs.org](https://nodejs.org/en/download/). We used node v15, but newer versions should also work.
+
+-   Python 3.8.6. You can download it from [Python.org](https://www.python.org/downloads/). I recommend installing via miniconda and the conda-forge channel.
+-   node v15+. Download it from [nodejs.org](https://nodejs.org/en/download/). We used node v15, but newer versions should also work.
 
 ### Setup
 
@@ -94,7 +94,7 @@ pip install -U pip --user
 pip install -r requirements.txt
 ```
 
-If problems wrt to pip, django, or numpy arise, ensure you're using python 3.8.6  you're operating in your virtual environment, then attempt to install via python3 -m pip install manually. If this doesn't help, try using an elevated CMD (not Windows Terminal.) 
+If problems wrt to pip, django, or numpy arise, ensure you're using python 3.8.6 you're operating in your virtual environment, then attempt to install via python3 -m pip install manually. If this doesn't help, try using an elevated CMD (not Windows Terminal.)
 
 Finally, download a sample set of images to work from. This script downloads two files:
 
@@ -110,10 +110,11 @@ The backend is now ready to go.
 
     cd ..
 
-Next, set up the frontend:
+EDIT: Next, set up the frontend (I use [bun](https://bun.sh/) which can installed via: curl -fsSL https://bun.sh/install | bash) but you can use pnpm, yarn, or npm:
 
     cd frontend
-    npm ci
+    # manually install @vue/cli via whatever pkg manager you're using then the other dependencies via:
+    bun install or pnpm -i --lockfile-only or npm ci
 
 ### Running
 
@@ -126,8 +127,10 @@ To run the backend, open one terminal window and do:
 
 In another terminal window, run the frontend server:
 
+EDIT: *Webpack 4 is outdated so pass the option --open-ssl-legacy-provider option via command line or "export NODE_OPTIONS=--open-ssl-legacy-provider" in package.json to avoid "ERR_OSSL_EVP_UNSUPPORTED" error.*
+
     cd frontend
-    npm run serve
+    bun run serve --open-ssl-legacy-provider
 
 Then go to http://localhost:8080 in a browser to use CAVstudio.
 
@@ -135,35 +138,35 @@ Explore three preloaded concepts, or create a new concept using images from your
 
 To create a new concept:
 
-1. Gather and upload images that evoke a certain style, mood, or “feel” of an idea. We recommend using 50 square-ratio  images, but we’ve had success using as few as 15 images.
+1. Gather and upload images that evoke a certain style, mood, or “feel” of an idea. We recommend using 50 square-ratio images, but we’ve had success using as few as 15 images.
 2. Select an image set to search.
 3. Train your Concept Activation Vector (CAV) and explore the results to see how well the model expresses your concept.
 4. Inspect your results using Focus mode to see which parts of the image match your mood board best – or AI crop mode, to crop in directly to uncover new compositions.
 5. You can retrain your CAV as many times as you like by upweighting, downweighting, deleting, or adding new images to your mood board.
 6. Once you're happy with how the model expresses your visual concept, you can download your CAV file for use in [CAVcamera], an experimental camera app we made that lets you take photos using CAVs as your real-time guide.
 
-[CAVcamera]: https://play.google.com/store/apps/details?id=co.nordprojects.cavcam
+[cavcamera]: https://play.google.com/store/apps/details?id=co.nordprojects.cavcam
 
 Want to use Mood Board Search in your own website creations? We’ve made a library called [CAVlib] that lets you do just that.
 
-[CAVlib]: ./cavlib
+[cavlib]: ./cavlib
 
 ## How can I send feedback or get in contact with you?
 
 You have a few options:
 
-- Email cav-experiments-support@google.com
-- Submit your project to the [Experiments with Google] page
+-   Email cav-experiments-support@google.com
+-   Submit your project to the [Experiments with Google] page
 
-[Experiments with Google]: https://experiments.withgoogle.com/submit
+[experiments with google]: https://experiments.withgoogle.com/submit
 
 ## Contributors
 
 This is not an officially supported Google product, but an experiment that was a collaborative effort by friends from Nord Projects and Google Brain, Mural, and PAIR teams at Google.
 
-- [Nord Projects](https://github.com/nordprojects)
-- [Been Kim](https://github.com/BeenKim)
-- [Emily Reif](https://github.com/EmilyReif)
+-   [Nord Projects](https://github.com/nordprojects)
+-   [Been Kim](https://github.com/BeenKim)
+-   [Emily Reif](https://github.com/EmilyReif)
 
 ## License
 
