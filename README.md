@@ -65,7 +65,7 @@ Once formed, the CAV can be compared with any new image, by looking at the angle
 This release of Mood Board Search is available as a HTML/JS frontend app (“CAVstudio”) that works with a local Python backend.
 
 To run CAVstudio, you'll need on your machine:
-- Python 3.8. You can download it from [Python.org](https://www.python.org/downloads/).
+- Python 3.8.6. You can download it from [Python.org](https://www.python.org/downloads/). I recommend installing via miniconda and the conda-forge channel.
 - node v15+. Download it from [nodejs.org](https://nodejs.org/en/download/). We used node v15, but newer versions should also work.
 
 ### Setup
@@ -74,14 +74,27 @@ First, clone this repository.
 
 There are two servers that make Mood Board Search. The backend Python server manages the data store and runs the ML algorithms. The frontend server builds and hosts the browser-based user interface.
 
-To set up the backend:
+To set up the backend on Linux (as of 03/01/2023):
 
     cd backend
-
+    
     python3.8 -m venv env
     source env/bin/activate
     pip install -U pip
     pip install -r requirements.txt
+    python3 -m pip install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.11.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+
+EDIT: On Windows (after installing Python version 3.8.6):
+
+```
+cd backend
+py -3.8 -m venv env --system-site-packages
+.\env\Scripts\activate
+pip install -U pip --user
+pip install -r requirements.txt
+```
+
+If problems wrt to pip, django, or numpy arise, ensure you're using python 3.8.6  you're operating in your virtual environment, then attempt to install via python3 -m pip install manually. If this doesn't help, try using an elevated CMD (not Windows Terminal.) 
 
 Finally, download a sample set of images to work from. This script downloads two files:
 
