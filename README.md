@@ -1,3 +1,5 @@
+**EDIT**: Updated installation instructions as main repo is outdated, YMMV. Webpack 4->5 migration is also suggested for the frontend.
+
 # Mood Board Search
 
 ![Hero image](https://user-images.githubusercontent.com/1244307/140734553-0f812a63-0857-4039-a9dd-0094dab62a65.jpg)
@@ -84,7 +86,7 @@ To set up the backend on Linux (as of 03/01/2023):
     pip install -r requirements.txt
     python3 -m pip install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-2.11.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 
-EDIT: On Windows (after installing Python version 3.8.6):
+**EDIT**: On Windows (after installing Python version 3.8.6):
 
 ```
 cd backend
@@ -110,7 +112,7 @@ The backend is now ready to go.
 
     cd ..
 
-EDIT: Next, set up the frontend (I use [bun](https://bun.sh/) which can installed via: curl -fsSL https://bun.sh/install | bash) but you can use pnpm, yarn, or npm:
+**EDIT**: Next, set up the frontend (I use [bun](https://bun.sh/) which can installed via: curl -fsSL https://bun.sh/install | bash) but you can use pnpm, yarn, or npm:
 
     cd frontend
     # manually install @vue/cli via whatever pkg manager you're using then the other dependencies via:
@@ -127,7 +129,7 @@ To run the backend, open one terminal window and do:
 
 In another terminal window, run the frontend server:
 
-EDIT: *Webpack 4 is outdated so pass the option --open-ssl-legacy-provider option via command line or "export NODE_OPTIONS=--open-ssl-legacy-provider" in package.json to avoid "ERR_OSSL_EVP_UNSUPPORTED" error.*
+**EDIT**: *Webpack 4 is outdated so pass the option --open-ssl-legacy-provider option via command line or "export NODE_OPTIONS=--open-ssl-legacy-provider" in package.json to avoid "ERR_OSSL_EVP_UNSUPPORTED" error.*
 
     cd frontend
     bun run serve --open-ssl-legacy-provider
