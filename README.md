@@ -1,4 +1,4 @@
-**EDIT**: Updated installation instructions as main repo is outdated, YMMV. Altered steps are noted with "EDIT." Webpack 4-> Vite migration is also suggested for the frontend.
+**EDIT**: Updated installation instructions as main repo is outdated, YMMV. Altered steps are noted with "EDIT." Webpack 4 --> Vite migration is also suggested for the frontend.
 
 # Mood Board Search
 
